@@ -1,10 +1,17 @@
 import requests
 from time import sleep
+from environs import Env
+import asyncio
+import telegram
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    # print_hi('PyCharm')
-    headers = {'Authorization': 'Token 1ff0f78cc5a3bec7437264cfb33e8c86c0d2e58e'}
+async def main():
+    bot = telegram.Bot(env('TG_TOKEN'))
+    async with bot:
+        await bot.send_message(text='Hello world',chat_id=305151573)
+
+
+def get_notification():
+    headers = {'Authorization': env('DEVMAN_TOKEN')}
     while True:
         try:
             response = requests.get('https://dvmn.org/api/long_polling/', headers=headers)
@@ -16,6 +23,13 @@ if __name__ == '__main__':
         except requests.exceptions.ConnectionError:
             print('интернет отключился,а я нет')
             sleep(5)
+
+env = Env()
+env.read_env()
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    asyncio.run(main())
+
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
