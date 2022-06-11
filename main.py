@@ -24,13 +24,13 @@ def get_notification():
         try:
             response = requests.get('https://dvmn.org/api/long_polling/', headers=headers)
             if response.json()['status'] == 'found':
-                messages_1 = response.json()['new_attempts'][0]['lesson_title']
+                message_1 = response.json()['new_attempts'][0]['lesson_title']
                 if response.json()['new_attempts'][0]['is_negative']:
-                    messages_2 = 'К сожалению, в работе нашлись ошибки.'
-                    asyncio.run(main(messages_1, messages_2))
+                    message_2 = 'К сожалению, в работе нашлись ошибки.'
+                    asyncio.run(main(messages_1, message_2))
                 else:
-                    messages_2 = 'Преподавателю все понравилось, можно приступать к следующему уроку!'
-                    asyncio.run(main(messages_1, messages_2))
+                    message_2 = 'Преподавателю все понравилось, можно приступать к следующему уроку!'
+                    asyncio.run(main(message_1, message_2))
             elif response.json()['status'] == 'timeout':
                 timestamp = {'timestamp': response.json()['timestamp_to_request']}
                 new_response = requests.get('https://dvmn.org/api/long_polling/', headers=headers, params=timestamp)
