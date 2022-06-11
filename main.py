@@ -15,7 +15,8 @@ TOKEN = env('DEVMAN_TOKEN')
 async def main(*messages):
     bot = telegram.Bot(TG_TOKEN)
     async with bot:
-        await bot.send_message(text=f'У вас проверили работу "{messages[0]}" \n\n {messages[1]}', chat_id=CHAT_ID)
+        await bot.send_message(text=f'У вас проверили работу "{messages[0]}" \n\n {messages[1]} \n'
+                                    f'{messages[2]}', chat_id=CHAT_ID)
 
 
 def get_notification():
@@ -25,12 +26,13 @@ def get_notification():
             response = requests.get('https://dvmn.org/api/long_polling/', headers=headers)
             if response.json()['status'] == 'found':
                 message_1 = response.json()['new_attempts'][0]['lesson_title']
+                message_3 = response.json()['new_attempts'][0]['lesson_url']
                 if response.json()['new_attempts'][0]['is_negative']:
                     message_2 = 'К сожалению, в работе нашлись ошибки.'
-                    asyncio.run(main(messages_1, message_2))
+                    asyncio.run(main(message_1, message_2,message_3))
                 else:
                     message_2 = 'Преподавателю все понравилось, можно приступать к следующему уроку!'
-                    asyncio.run(main(message_1, message_2))
+                    asyncio.run(main(message_1, message_2, message_3))
             elif response.json()['status'] == 'timeout':
                 timestamp = {'timestamp': response.json()['timestamp_to_request']}
                 new_response = requests.get('https://dvmn.org/api/long_polling/', headers=headers, params=timestamp)
