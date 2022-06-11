@@ -21,29 +21,34 @@ async def main(*messages):
 
 def get_notification():
     headers = {'Authorization': TOKEN}
+    params = None
     while True:
         try:
-            response = requests.get('https://dvmn.org/api/long_polling/', headers=headers)
-            if response.json()['status'] == 'found':
-                message_1 = response.json()['new_attempts'][0]['lesson_title']
-                message_3 = response.json()['new_attempts'][0]['lesson_url']
-                if response.json()['new_attempts'][0]['is_negative']:
-                    message_2 = 'К сожалению, в работе нашлись ошибки.'
-                    asyncio.run(main(message_1, message_2,message_3))
-                else:
-                    message_2 = 'Преподавателю все понравилось, можно приступать к следующему уроку!'
-                    asyncio.run(main(message_1, message_2, message_3))
-            elif response.json()['status'] == 'timeout':
-                timestamp = {'timestamp': response.json()['timestamp_to_request']}
-                new_response = requests.get('https://dvmn.org/api/long_polling/', headers=headers, params=timestamp)
-                if new_response.json()['status'] == 'found':
-                    asyncio.run(main())
+            response = requests.get(
+                'https://dvmn.org/api/long_polling/',
+                headers=headers,
+                params=params
+            )
+            if response.json()['status'] == 'timeout':
+                params["timestamp"] = response.json()["timestamp_to_request"]
+                continue
+            params = {'timestamp': response.json()['last_attempt_timestamp']}
+            message_1 = response.json()['new_attempts'][0]['lesson_title']
+            if response.json()['new_attempts'][0]['is_negative']:
+                message_2 = 'К сожалению, в работе нашлись ошибки.'
+            else:
+                message_2 = 'Преподавателю все понравилось, можно приступать к следующему уроку!'
+            message_3 = response.json()['new_attempts'][0]['lesson_url']
+            asyncio.run(main(message_1, message_2, message_3))
         except requests.exceptions.ReadTimeout:
             print('время истекло')
+            continue
         except requests.exceptions.ConnectionError:
-            print('интернет отключился,а я нет')
+            print('Интернет отключился,а я нет')
             sleep(5)
 
 
 if __name__ == '__main__':
     get_notification()
+
+
