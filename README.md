@@ -40,7 +40,7 @@ pip install -r requirements.txt
 Создайте файл `.env` в корне каталога `bot_notification/` со следующими настройками:
 
 - `DEVMAN_TOKEN` — для этого зарегистрируйтесь на сайте [Devman](https://dvmn.org)
-- `TG_TOKEN` — для этого вам нужна написать [отцу ботов](https://telegram.me/BotFather).
+- `TG_TOKEN` — для этого вам нужно написать [отцу ботов](https://telegram.me/BotFather).
 - `CHAT_ID` — для этого нужно написать [этому боту](https://telegram.me/getmyid_bot)
 
 Бот готов для запуска, запустите файл `main.py` и после проверки проекта вам придет уведомление.
