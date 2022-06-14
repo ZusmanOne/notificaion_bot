@@ -4,12 +4,6 @@ from environs import Env
 import asyncio
 import telegram
 
-env = Env()
-env.read_env()
-
-CHAT_ID = env('CHAT_ID')
-TG_TOKEN = env('TG_TOKEN')
-TOKEN = env('DEVMAN_TOKEN')
 
 
 async def send_message(*messages):
@@ -49,6 +43,12 @@ def get_notification():
 
 
 if __name__ == '__main__':
+    env = Env()
+    env.read_env()
+    CHAT_ID = env('TG_CHAT_ID')
+    TG_TOKEN = env('TG_TOKEN')
+    TOKEN = env('DEVMAN_TOKEN')
+
     get_notification()
 
 
