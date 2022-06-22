@@ -3,6 +3,7 @@ from time import sleep
 from environs import Env
 import asyncio
 import telegram
+import logging
 
 
 async def send_message(tg_token, chat_id, *messages):
@@ -50,6 +51,7 @@ def main():
 
 
 if __name__ == '__main__':
+    logging.warning('Бот запущен')
     main()
 
 
