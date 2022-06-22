@@ -26,6 +26,7 @@ def main():
                 'https://dvmn.org/api/long_polling/',
                 headers=headers,
                 params=params,
+                timeout=5,
 
             )
             response.raise_for_status()
@@ -45,7 +46,7 @@ def main():
             continue
         except requests.exceptions.ConnectionError:
             print('Интернет отключился,а я нет')
-            sleep(10)
+            sleep(5)
 
 
 if __name__ == '__main__':
