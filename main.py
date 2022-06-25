@@ -63,6 +63,8 @@ def main():
         except requests.exceptions.ConnectionError as err:
             logger.info(err)
             sleep(5)
+        except Exception:
+            logger.exception('что то пошло не так')
 
 
 
