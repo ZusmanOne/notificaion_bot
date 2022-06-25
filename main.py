@@ -42,7 +42,6 @@ def main():
                 'https://dvmn.org/api/long_polling/',
                 headers=headers,
                 params=params,
-                timeout=5,
 
             )
             response.raise_for_status()
