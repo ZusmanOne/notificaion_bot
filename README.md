@@ -47,7 +47,7 @@ pip install -r requirements.txt
 ### Бот так же обернут в докер, что бы запустить проект в докере, следуйте инструкциям:
 
 - для этого установите докер на свою машину согласно [инструкции](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-ru), если еще это не делалаи
-- создайте докер-образ на основе файла Docker файл:
+- создайте докер-образ на основе файла Dockerfile:
 ``` 
 docker build -t name_image .
 ```
