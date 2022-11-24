@@ -44,3 +44,14 @@ pip install -r requirements.txt
 - `TG_CHAT_ID` — для этого нужно написать [этому боту](https://telegram.me/getmyid_bot)
 
 Бот готов для запуска, запустите файл `main.py` и после проверки проекта вам придет уведомление.
+### Бот так же обернут в докер, что бы запустить проект в докере, следуйте инструкциям:
+
+- для этого установите докер на свою машину согласно [инструкции](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-ru), если еще это не делалаи
+- создайте докер-образ на основе файла Docker файл:
+``` 
+docker build -t name_image .
+```
+- запустите контейнер на основе созданного образа:
+``` 
+docker run --env-file ./.env name_image
+```
