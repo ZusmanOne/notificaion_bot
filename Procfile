@@ -1,1 +1,1 @@
-bot: python3 main.py
+bot : docker run --env-file ./.env ubuntu bash

@@ -20,7 +20,7 @@ class TelegramLogsHandler(logging.Handler):
 
 def send_message(tg_token, chat_id, *messages):
     bot = telegram.Bot(tg_token)
-    bot.send_message(text=f'У вас проверили работу "{messages[0]}" \n\n {messages[1]} \n'
+    bot.send_message(text=f'У 2вас проверили работу "{messages[0]}" \n\n {messages[1]} \n'
                      f'{messages[2]}', chat_id=chat_id)
 
 
@@ -69,4 +69,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print('Запуск!!!!!')
     main()
